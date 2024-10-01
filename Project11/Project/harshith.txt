@@ -1,0 +1,71 @@
+
+mysql> show tables;
++--------------------------+
+| Tables_in_travel_planner |
++--------------------------+
+| accommodation_table      |
+| activity_table           |
+| destination_table        |
+| review_table             |
+| users_table              |
++--------------------------+
+5 rows in set (0.02 sec)
+
+mysql> DESC accommodation_table;
++------------------+------------+------+-----+---------+-------+
+| Field            | Type       | Null | Key | Default | Extra |
++------------------+------------+------+-----+---------+-------+
+| Accommodation_ID | int        | NO   | PRI | NULL    |       |
+| Folks_count      | int        | YES  |     | NULL    |       |
+| End_date         | date       | YES  |     | NULL    |       |
+| Start_date       | date       | YES  |     | NULL    |       |
+| Destination_ID   | int        | YES  | MUL | NULL    |       |
+| User_ID          | varchar(4) | YES  | MUL | NULL    |       |
++------------------+------------+------+-----+---------+-------+
+6 rows in set (0.00 sec)
+
+mysql> DESC activity_table;
++----------------+--------------+------+-----+---------+-------+
+| Field          | Type         | Null | Key | Default | Extra |
++----------------+--------------+------+-----+---------+-------+
+| Activity_ID    | int          | NO   | PRI | NULL    |       |
+| Destination_ID | int          | YES  | MUL | NULL    |       |
+| Type           | varchar(255) | YES  |     | NULL    |       |
+| Cost           | float        | YES  |     | NULL    |       |
++----------------+--------------+------+-----+---------+-------+
+4 rows in set (0.01 sec)
+
+mysql> DESC destination_table;
++------------------+--------------+------+-----+---------+-------+
+| Field            | Type         | Null | Key | Default | Extra |
++------------------+--------------+------+-----+---------+-------+
+| Destination_ID   | int          | NO   | PRI | NULL    |       |
+| Destination_Name | varchar(255) | YES  |     | NULL    |       |
+| Country          | varchar(255) | YES  |     | NULL    |       |
+| Image_URL        | varchar(255) | YES  |     | NULL    |       |
+| Climate          | varchar(255) | YES  |     | NULL    |       |
++------------------+--------------+------+-----+---------+-------+
+5 rows in set (0.01 sec)
+
+mysql> DESC review_table;
++----------------+-------+------+-----+---------+-------+
+| Field          | Type  | Null | Key | Default | Extra |
++----------------+-------+------+-----+---------+-------+
+| Review_ID      | int   | NO   | PRI | NULL    |       |
+| User_ID        | int   | YES  |     | NULL    |       |
+| Destination_ID | int   | YES  |     | NULL    |       |
+| Rating         | float | YES  |     | NULL    |       |
++----------------+-------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+
+mysql> DESC users_table;
++-----------+--------------+------+-----+---------+-------+
+| Field     | Type         | Null | Key | Default | Extra |
++-----------+--------------+------+-----+---------+-------+
+| User_ID   | varchar(4)   | NO   | PRI | NULL    |       |
+| User_Name | varchar(255) | YES  |     | NULL    |       |
+| Ph_no     | varchar(255) | YES  |     | NULL    |       |
+| Email     | varchar(255) | YES  |     | NULL    |       |
+| Password  | varchar(255) | YES  |     | NULL    |       |
++-----------+--------------+------+-----+---------+-------+
+5 rows in set (0.00 sec)

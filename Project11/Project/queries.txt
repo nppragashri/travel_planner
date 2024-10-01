@@ -1,0 +1,69 @@
+CREATE TABLE USERS_TABLE (
+    User_ID VARCHAR(4) PRIMARY KEY,
+    User_Name VARCHAR(255),
+    Ph_no VARCHAR(255),
+    Email VARCHAR(255),
+    Password VARCHAR(255)
+);
+
+CREATE TABLE DESTINATION_TABLE (
+    Destination_ID INT PRIMARY KEY,
+    Destination_Name VARCHAR(255),
+    Country VARCHAR(255),
+    Image_URL VARCHAR(255),
+    Climate VARCHAR(255)
+);
+
+CREATE TABLE ACCOMMODATION_TABLE (
+    Accommodation_ID INT PRIMARY KEY,
+    Folks_count INT,
+    End_date VARCHAR(255),
+    Start_date VARCHAR(255),
+    Destination_ID INT,
+    User_ID VARCHAR(4)
+);
+
+CREATE TABLE ACTIVITY_TABLE (
+    Activity_ID INT PRIMARY KEY,
+    Destination_ID INT,
+    Type VARCHAR(255),
+    Cost FLOAT
+);
+
+CREATE TABLE REVIEW_TABLE (
+    Review_ID INT AUTO_INCREMENT PRIMARY KEY,
+    User_ID VARCHAR(4),
+    Destination_ID INT,
+    Rating FLOAT
+);
+
+ALTER TABLE accommodation_table
+ALTER COLUMN Start_date VARCHAR(255)
+ALTER COLUMN End_date VARCHAR(255);
+
+30-09-2023
+
+ALTER TABLE ACCOMMODATION_TABLE ADD FOREIGN KEY (Destination_ID) REFERENCES DESTINATION_TABLE(Destination_ID);
+ALTER TABLE ACCOMMODATION_TABLE ADD FOREIGN KEY (User_ID) REFERENCES USER_TABLE(User_ID);
+ALTER TABLE ACTIVITY_TABLE ADD FOREIGN KEY (Destination_ID) REFERENCES DESTINATION_TABLE(Destination_ID);
+ALTER TABLE REVIEW_TABLE ADD FOREIGN KEY (User_ID) REFERENCES USERS_TABLE(User_ID);
+ALTER TABLE REVIEW_TABLE ADD FOREIGN KEY (Destination_ID) REFERENCES DESTINATION_TABLE(Destination_ID);
+
+CREATE TABLE Politicians(PoliticianID INT PRIMARY KEY AUTO_INCREMENT,Name VARCHAR(255) NOT NULL,Party VARCHAR(50),Age INT,Position VARCHAR(100));
+    CREATE USER 'Charles'@'localhost' IDENTIFIED BY 'password';
+
+CREATE TABLE PoliticalRelationships(RelationshipID INT PRIMARY KEY AUTO_INCREMENT,ParentPoliticianID INT NOT NULL,ChildPoliticianID INT NOT NULL,RelationshipType VARCHAR(50) NOT NULL,FOREIGN KEY (ParentPoliticianID) REFERENCES Politicians(PoliticianID),FOREIGN KEY (ChildPoliticianID) REFERENCES Politicians(PoliticianID));
+
+WITH RECURSIVE MentorshipChain AS (
+SELECT Politicians.PoliticianID, Politicians. Name, Politicians. Position, 0 AS Depth
+FROM Politicians
+WHERE Name =
+'Politician A' AND Position = 'Senator'
+UNION ALL
+
+SELECT p.PoliticianID, p.Name, p.Position, mc.Depth + 1 AS Depth FROM MentorshipChain mc
+JOIN PoliticalRelationships pr ON mc.PoliticianID = pr.ParentPoliticianID
+JOIN Politicians p ON pr.ChildPoliticianID = p.PoliticianID
+WHERE pr. RelationshipType = 'Mentor'
+)
+SELECT * FROM MentorshipChain;
